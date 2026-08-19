@@ -236,13 +236,11 @@ void print_tokens(TokenList *list)
 
         if (token->type == TOKEN_EOF)
         {
-            printf("[%d] %-18s\n",
-                   i,
-                   token_type_to_string(token->type));
+            printf("[%d] EOF\n", i);
         }
         else
         {
-            printf("[%d] %-18s : %s\n",
+            printf("[%d] %-20s : %s\n",
                    i,
                    token_type_to_string(token->type),
                    token->value);
