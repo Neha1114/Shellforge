@@ -1,8 +1,11 @@
 CC = gcc
+
 CFLAGS = -Wall -Wextra -Iinclude
+
 TARGET = shellforge
 
-SRC = src/main.c src/token.c src/lexer.c src/parser.c src/expand.c
+SRC = src/main.c src/token.c src/lexer.c src/parser.c src/expand.c src/builtin.c
+
 OBJ = $(SRC:.c=.o)
 
 all: $(TARGET)
