@@ -8,6 +8,7 @@
 #include "../include/parser.h"
 #include "../include/expand.h"
 #include "../include/builtin.h"
+#include "../include/executor.h"
 
 int main(void)
 {
@@ -17,6 +18,7 @@ int main(void)
 
         if (input == NULL)
         {
+            printf("\n");
             break;
         }
 
@@ -38,9 +40,12 @@ int main(void)
 
         print_commands(commands);
 
-        if (commands->count == 1)
+        for (int i = 0; i < commands->count; i++)
         {
-            Command *command = commands->commands[0];
+            Command *command = commands->commands[i];
+
+            if (command->argc == 0)
+                continue;
 
             if (is_builtin(command))
             {
@@ -48,15 +53,8 @@ int main(void)
             }
             else
             {
-                fprintf(stderr,
-                        "%s: command not found\n",
-                        command->argv[0]);
+                execute_external(command);
             }
-        }
-        else if (commands->count > 1)
-        {
-            fprintf(stderr,
-                    "Pipelines are not executed in Milestone 3.1\n");
         }
 
         free_command_list(commands);

@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Iinclude
 
 TARGET = shellforge
 
-SRC = src/main.c src/token.c src/lexer.c src/parser.c src/expand.c src/builtin.c
+SRC = src/main.c src/token.c src/lexer.c src/parser.c src/expand.c src/builtin.c src/executor.c
 
 OBJ = $(SRC:.c=.o)
 
