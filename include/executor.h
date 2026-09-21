@@ -5,5 +5,6 @@
 
 int execute_external(Command *command);
 
-#endif
+int execute_pipeline(Command **commands, int command_count);
 
+#endif

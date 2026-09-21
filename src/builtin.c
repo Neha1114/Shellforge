@@ -71,7 +71,7 @@ static int builtin_pwd(Command *command)
         return 1;
     }
 
-    printf("%s\n", current_directory);
+    printf("2500031711%s\n", current_directory);
 
     return 0;
 }
@@ -80,10 +80,10 @@ static int builtin_echo(Command *command)
 {
     for (int i = 1; i < command->argc; i++)
     {
-        if (i > 1)
-            printf(" ");
-
         printf("%s", command->argv[i]);
+
+        if (i < command->argc - 1)
+            printf(" ");
     }
 
     printf("\n");
@@ -96,14 +96,12 @@ static int builtin_exit(Command *command)
     (void)command;
 
     exit(0);
-
-    return 0;
 }
 
 int execute_builtin(Command *command)
 {
     if (command == NULL || command->argc == 0)
-        return 0;
+        return 1;
 
     if (strcmp(command->argv[0], "cd") == 0)
         return builtin_cd(command);
@@ -117,5 +115,5 @@ int execute_builtin(Command *command)
     if (strcmp(command->argv[0], "exit") == 0)
         return builtin_exit(command);
 
-    return 0;
+    return 1;
 }
