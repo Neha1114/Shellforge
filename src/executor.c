@@ -6,6 +6,7 @@
 
 #include "../include/executor.h"
 
+
 int execute_external(Command *command)
 {
     if (command == NULL || command->argc == 0)
@@ -25,6 +26,12 @@ int execute_external(Command *command)
 
         perror("execvp");
         exit(EXIT_FAILURE);
+    }
+
+    if (command->background)
+    {
+        printf("[Background PID: %d]\n", pid);
+        return 0;
     }
 
     int status;
