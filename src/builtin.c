@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,6 +6,8 @@
 #include <limits.h>
 
 #include "../include/builtin.h"
+#include "../include/jobs.h"
+#include "../include/job_control.h"
 
 int is_builtin(Command *command)
 {
@@ -22,7 +25,13 @@ int is_builtin(Command *command)
 
     if (strcmp(command->argv[0], "exit") == 0)
         return 1;
+    if (strcmp(command->argv[0], "jobs") == 0)
+        return 1;
+    if (strcmp(command->argv[0], "fg") == 0)
+        return 1;
 
+    if (strcmp(command->argv[0], "bg") == 0)
+        return 1;
     return 0;
 }
 
@@ -114,6 +123,40 @@ int execute_builtin(Command *command)
 
     if (strcmp(command->argv[0], "exit") == 0)
         return builtin_exit(command);
+    if (strcmp(command->argv[0], "jobs") == 0)
+    {
+        list_jobs();
+        return 0;
+    }
+    if (strcmp(command->argv[0], "fg") == 0)
+    {
+        if (command->argc != 2)
+        {
+            printf("Usage: fg %%job_id\n");
+            return 1;
+        }
+
+        int job_id = atoi(command->argv[1] + 1);
+
+        foreground_job(job_id);
+
+        return 0;
+    }
+
+    if (strcmp(command->argv[0], "bg") == 0)
+    {
+        if (command->argc != 2)
+        {
+            printf("Usage: bg %%job_id\n");
+            return 1;
+        }
+
+        int job_id = atoi(command->argv[1] + 1);
+
+        background_job(job_id);
+
+        return 0;
+    }
 
     return 1;
 }
